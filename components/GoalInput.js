@@ -1,7 +1,11 @@
 import { StyleSheet, TextInput, View, Button, Modal } from 'react-native';
 import { useState } from 'react';
 
-export default function GoalInput({ setCourseGoals, visible }) {
+export default function GoalInput({
+  setCourseGoals,
+  visible,
+  endAddGoalHandler,
+}) {
   const [enteredGoalText, setEnteredGoalText] = useState('');
 
   const goalInputHandler = (enteredText) => {
@@ -12,6 +16,7 @@ export default function GoalInput({ setCourseGoals, visible }) {
       ...currentCouseGoals,
       { text: enteredGoalText, id: Date.now().toString() },
     ]);
+    endAddGoalHandler();
     setEnteredGoalText('');
   };
   return (
@@ -24,8 +29,12 @@ export default function GoalInput({ setCourseGoals, visible }) {
           value={enteredGoalText}
         />
         <View style={styles.buttonContainer}>
-          <Button title="Add Goal" onPress={addGoalHandler} />
-          <Button title="Cancel" />
+          <View style={styles.button}>
+            <Button title="Add Goal" onPress={addGoalHandler} />
+          </View>
+          <View style={styles.button}>
+            <Button title="Cancel" onPress={endAddGoalHandler} />
+          </View>
         </View>
       </View>
     </Modal>
@@ -38,17 +47,23 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     marginBottom: 24,
+    padding: 16,
     borderBottomWidth: 1,
     borderBottomColor: '#cccccc',
   },
   textInput: {
     borderWidth: 1,
     borderColor: '#cccccc',
-    width: '70%',
-    marginRight: 8,
+    width: '100%',
+
     padding: 8,
   },
   buttonContainer: {
+    marginTop: 16,
     flexDirection: 'row',
+  },
+  button: {
+    width: 100,
+    marginHorizontal: 8,
   },
 });

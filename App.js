@@ -10,6 +10,9 @@ export default function App() {
   const startAddGoalHandler = () => {
     setModalIsVisible(true);
   };
+  const endAddGoalHandler = () => {
+    setModalIsVisible(false);
+  };
 
   const deleteCoalHanlder = (id) => {
     setCourseGoals((currentCourseGoals) => {
@@ -24,7 +27,11 @@ export default function App() {
         color="#5e0acc"
         onPress={startAddGoalHandler}
       />
-      <GoalInput setCourseGoals={setCourseGoals} visible={modalIsVisible} />
+      <GoalInput
+        setCourseGoals={setCourseGoals}
+        visible={modalIsVisible}
+        endAddGoalHandler={endAddGoalHandler}
+      />
       <View style={styles.goalsContainer}>
         <FlatList
           renderItem={(itemData) => {
